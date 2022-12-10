@@ -3,7 +3,7 @@ export default class NewsApiService {
   #BASE_URL = `https://pixabay.com/api/`;
   #KEY = '31952435-a6265c5ad36628f4c77481e76';
   constructor() {
-    this.searchQuery = '';
+    this.valueSearchQuery = '';
     this.page = 1;
   }
   fetchImage() {
@@ -23,7 +23,7 @@ export default class NewsApiService {
     return axios.get(`$(this.#BASE_URL)`, {
       params: {
         key: this.#KEY,
-        g: this.searchQuery,
+        g: this.valueSearchQuery,
         image_type: 'photo',
         orientation: 'orientation',
         safesearch: true,
@@ -38,10 +38,10 @@ export default class NewsApiService {
   resetPage() {
     this.page = 1;
   }
-  get searchQuery() {
-    return this.searchQuery;
+  get ValueSearchQuery() {
+    return this.valueSearchQuery;
   }
-  set searchQuery(value) {
-    this.searchQuery = value;
+  set ValueSearchQuery(value) {
+    this.valueSearchQuery = value;
   }
 }

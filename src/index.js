@@ -27,8 +27,7 @@ function onSubmit(event) {
     return;
   }
   // якщо введено слово,то рендери розмітку на екран,очищай інпут і роби кнопку "завантажити ще" активною
-  newsApiService
-    .fetchImage()
+  NewsApiService.fetchImage()
     .then(({ hits, totalHits }) => {
       if (hits.length === 0) {
         Notiflix.Notify.failure(
@@ -52,6 +51,7 @@ function onSubmit(event) {
     .catch()
     .finally(() => newsApiService.form.reset());
 }
+
 function renderCard(img) {
   refs.galleryEl.insertAdjacentHTML('beforeend', markupGallery(img));
 }

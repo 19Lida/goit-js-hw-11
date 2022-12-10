@@ -1,2 +1,2 @@
-// export { renderCard };
-// import refs from './index';
+export { renderCard };
+import refs from './index.js';
