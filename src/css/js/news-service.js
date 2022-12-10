@@ -1,7 +1,7 @@
 import axios from 'axios';
 export default class NewsApiService {
   #BASE_URL = `https://pixabay.com/api/`;
-  #KEY = `31952435-a6265c5ad36628f4c77481e76`;
+  #KEY = '31952435-a6265c5ad36628f4c77481e76';
   constructor() {
     this.searchQuery = '';
     this.page = 1;
@@ -42,6 +42,6 @@ export default class NewsApiService {
     return this.searchQuery;
   }
   set searchQuery(value) {
-    this.value.searchQuery = value;
+    this.searchQuery = value;
   }
 }

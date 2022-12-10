@@ -1,6 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import NewsApiService from './news-service';
+import NewsApiService from './css/js/news-service';
 import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
