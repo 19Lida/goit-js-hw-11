@@ -1,5 +1,5 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+// import SimpleLightbox from 'simplelightbox';
+// import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './css/js/news-service';
 import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -27,7 +27,8 @@ function onSubmit(event) {
     return;
   }
   // якщо введено слово,то рендери розмітку на екран,очищай інпут і роби кнопку "завантажити ще" активною
-  NewsApiService.fetchImage()
+  newsApiService
+    .fetchImage()
     .then(({ hits, totalHits }) => {
       if (hits.length === 0) {
         Notiflix.Notify.failure(
