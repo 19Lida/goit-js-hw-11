@@ -15,42 +15,43 @@ const newsApiService = new NewsApiService();
 let totalPages = null;
 refs.formEl.addEventListener('submit', onSubmit);
 refs.buttonLoad.addEventListener('click', onLoadMore);
-function onSubmit(event) {
+async function onSubmit(event) {
   event.preventDefault();
   newsApiService.form = event.currentTarget;
-  newsApiService.query = event.currentTarget.elements.searchQuery.value.trim();
+  newsApiService.valueSearchQuery =
+    event.currentTarget.elements.searchQuery.value.trim();
   newsApiService.resetPage();
   refs.galleryEl.innerHTML = '';
   if (newsApiService.query === '') {
-    Notiflix.Notify.failure('Please, fill the  field.');
+    Notify.failure('Please, fill the  field.');
     refs.buttonLoad.classList.add('is-hidden');
     return;
   }
   // якщо введено слово,то рендери розмітку на екран,очищай інпут і роби кнопку "завантажити ще" активною
-  newsApiService
-    .fetchImage()
-    .then(({ hits, totalHits }) => {
-      if (hits.length === 0) {
-        Notiflix.Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-        refs.buttonLoad.classList.add('is-hidden');
-        return;
-      }
-      renderCard(hits);
-      Notiflix.Notify.success('Hooray! We found ${totalHits} images.');
+  const {
+    data: { hits, totalHits },
+  } = await newsApiService.fetchImage();
+  if (hits.length === 0) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    refs.buttonLoad.classList.add('is-hidden');
+    return;
+  }
+  renderCard(hits);
+  Notify.success('Hooray! We found ${totalHits} images.');
 
-      refs.buttonLoad.classList.remove('is-hidden');
-      totalPages = Math.ceil(totalHits / 40);
-      if (newsApiService.page === totalPages) {
-        refs.buttonLoad.classList.add('is-hidden');
-        Notiflix.Notify.failure(
-          'We are sorry, but you have reached the end of search results'
-        );
-      }
-    })
-    .catch()
-    .finally(() => newsApiService.form.reset());
+  refs.buttonLoad.classList.remove('is-hidden');
+  totalPages = Math.ceil(totalHits / 40);
+  if (newsApiService.page === totalPages) {
+    refs.buttonLoad.classList.add('is-hidden');
+    Notify.failure(
+      'We are sorry, but you have reached the end of search results'
+    );
+  }
+
+  // .catch()
+  // .finally(() => newsApiService.form.reset());
 }
 
 function renderCard(img) {
@@ -107,7 +108,7 @@ function onLoadMore() {
       console.log(totalPages);
       if (newsApiService.page === totalPages) {
         refs.buttonLoad.classList.add('is-hidden');
-        Notiflix.Notify.failure(
+        Notify.failure(
           'We are sorry, but you have reached the end of search results'
         );
       }

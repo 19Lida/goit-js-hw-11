@@ -6,7 +6,7 @@ export default class NewsApiService {
     this.valueSearchQuery = '';
     this.page = 1;
   }
-  fetchImage() {
+  async fetchImage() {
     // const BASE_URL = `https://pixabay.com/api/`;
     // const API_KEY = `31952435-a6265c5ad36628f4c77481e76`;
     // try {
@@ -20,7 +20,7 @@ export default class NewsApiService {
     // } catch (error) {
     //   console.error(error);
     // }
-    return axios.get(`$(this.#BASE_URL)`, {
+    return await axios.get(`${this.#BASE_URL}`, {
       params: {
         key: this.#KEY,
         g: this.valueSearchQuery,
