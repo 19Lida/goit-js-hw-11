@@ -7,4 +7,5 @@
   "bracketSpacing": true,
   "arrowParens": "avoid",
   "proseWrap": "always"
+  
 }

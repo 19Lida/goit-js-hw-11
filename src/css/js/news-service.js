@@ -23,7 +23,7 @@ export default class NewsApiService {
     return await axios.get(`${this.#BASE_URL}`, {
       params: {
         key: this.#KEY,
-        g: this.valueSearchQuery,
+        q: this.valueSearchQuery,
         image_type: 'photo',
         orientation: 'orientation',
         safesearch: true,

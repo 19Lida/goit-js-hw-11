@@ -1,5 +1,5 @@
-// import SimpleLightbox from 'simplelightbox';
-// import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './css/js/news-service';
 import './css/styles.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -39,7 +39,7 @@ async function onSubmit(event) {
     return;
   }
   renderCard(hits);
-  Notify.success('Hooray! We found ${totalHits} images.');
+  Notify.success(`Hooray! We found ${totalHits} images.`);
 
   refs.buttonLoad.classList.remove('is-hidden');
   totalPages = Math.ceil(totalHits / 40);
@@ -97,9 +97,10 @@ function markupGallery(data) {
     )
     .join('');
 }
-function onLoadMore() {
+async function onLoadMore() {
   newsApiService.incrementPage();
-  newsApiService
+  // newsApiService
+  const result = await newsApiService
     .fetchImage()
     .then(({ hits, totalHits }) => {
       console.log(totalHits);
@@ -114,4 +115,14 @@ function onLoadMore() {
       }
     })
     .catch(error => console.log(error));
+  await smoothScroll();
+}
+async function smoothScroll() {
+  const { height: cardHeight } =
+    refs.galleryEl.firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
