@@ -133,3 +133,9 @@ function smoothScroll() {
     behavior: 'smooth',
   });
 }
+const gallery = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  overlayOpacity: 0.8,
+  closeText: '☣',
+  scrollZoom: false,
+});
