@@ -98,29 +98,33 @@ function markupGallery(data) {
     .join('');
 }
 async function onLoadMore() {
-  newsApiService.incrementPage();
+  // newsApiService.incrementPage();
   // newsApiService
-  const data = await newsApiService.fetchImage();
+  // const data = await newsApiService.fetchImage();
   try {
-    ({ data: { hits, totalHits } }) => {
-      console.log(totalHits);
-      renderCard(hits);
-      console.log(newsApiService.page);
+    newsApiService.incrementPage();
+    const {
+      data: { hits, totalHits },
+      // console.log(totalHits);
+      // renderCard(hits);
+      // console.log(newsApiService.page);
       // console.log(totalPages);
-      if (newsApiService.page === totalPages) {
-        refs.buttonLoad.classList.add('is-hidden');
-        Notify.failure(
-          'We are sorry, but you have reached the end of search results'
-        );
-      }
-    };
+    } = await newsApiService.fetchImage();
+    renderCard(hits);
+    // console.log(newsApiService.page);
+    if (newsApiService.page === totalPages) {
+      refs.buttonLoad.classList.add('is-hidden');
+      Notify.failure(
+        'We are sorry, but you have reached the end of search results'
+      );
+    }
+    smoothScroll();
   } catch (error) {
     console.log(error);
   }
 }
-// await smoothScroll();
 
-async function smoothScroll() {
+function smoothScroll() {
   const { height: cardHeight } =
     refs.galleryEl.firstElementChild.getBoundingClientRect();
 
