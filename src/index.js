@@ -56,6 +56,7 @@ async function onSubmit(event) {
 
 function renderCard(img) {
   refs.galleryEl.insertAdjacentHTML('beforeend', markupGallery(img));
+  // gallery.refresh();
 }
 function markupGallery(data) {
   return data
@@ -71,11 +72,12 @@ function markupGallery(data) {
       }) => {
         return `
 <div class="thumb">
+    
+    <div class="photo-card">
     <a href="${largeImageURL}"
             class="gallery__item" >
-    <div class="photo-card">
             <img src="${webformatURL}" alt="${tags}" width="300" height="300" loading="lazy"
-            class="gallery__image"/>
+            class="gallery__image"/></a>
         <div class="info">
             <p class="info-item">
             <b>Likes </b>${likes}
@@ -91,7 +93,7 @@ function markupGallery(data) {
             </p>
          </div>
     </div>
-    </a>
+    
 </div>`;
       }
     )
@@ -133,9 +135,21 @@ function smoothScroll() {
     behavior: 'smooth',
   });
 }
-const gallery = new SimpleLightbox('.gallery a', {
-  captionDelay: 250,
-  overlayOpacity: 0.8,
-  closeText: '☣',
-  scrollZoom: false,
-});
+// const gallery = new SimpleLightbox('.gallery a', {
+//   captionDelay: 250,
+//   overlayOpacity: 0.8,
+//   closeText: '☣',
+//   scrollZoom: false,
+// });
+refs.galleryEl.addEventListener('click', noGalleryContainerClick);
+function noGalleryContainerClick(event) {
+  event.preventDefault();
+  var gallery = new SimpleLightbox('.gallery a', {
+    captionData: 'alt',
+    captionDelay: 250,
+    animationSpeed: 250,
+    overlayOpacity: 0.8,
+    closeText: 'x',
+    scrollZoom: false,
+  });
+}
