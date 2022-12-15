@@ -49,14 +49,10 @@ async function onSubmit(event) {
       'We are sorry, but you have reached the end of search results'
     );
   }
-
-  // .catch()
-  // .finally(() => newsApiService.form.reset());
 }
 
 function renderCard(img) {
   refs.galleryEl.insertAdjacentHTML('beforeend', markupGallery(img));
-  // gallery.refresh();
 }
 function markupGallery(data) {
   return data
@@ -100,17 +96,10 @@ function markupGallery(data) {
     .join('');
 }
 async function onLoadMore() {
-  // newsApiService.incrementPage();
-  // newsApiService
-  // const data = await newsApiService.fetchImage();
   try {
     newsApiService.incrementPage();
     const {
       data: { hits, totalHits },
-      // console.log(totalHits);
-      // renderCard(hits);
-      // console.log(newsApiService.page);
-      // console.log(totalPages);
     } = await newsApiService.fetchImage();
     renderCard(hits);
     // console.log(newsApiService.page);
@@ -125,7 +114,7 @@ async function onLoadMore() {
     console.log(error);
   }
 }
-
+// функція скролу
 function smoothScroll() {
   const { height: cardHeight } =
     refs.galleryEl.firstElementChild.getBoundingClientRect();
@@ -135,12 +124,8 @@ function smoothScroll() {
     behavior: 'smooth',
   });
 }
-// const gallery = new SimpleLightbox('.gallery a', {
-//   captionDelay: 250,
-//   overlayOpacity: 0.8,
-//   closeText: '☣',
-//   scrollZoom: false,
-// });
+//бере на себе обробку кліків по зображеннях, відкриття і закриття модального вікна, а також гортання зображень за допомогою клавіатури.
+
 refs.galleryEl.addEventListener('click', noGalleryContainerClick);
 function noGalleryContainerClick(event) {
   event.preventDefault();
